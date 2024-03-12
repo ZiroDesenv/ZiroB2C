@@ -1,52 +1,49 @@
 import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import PrimeiraTela from './src/PreLoad/primeiroContatoDeLogin/primeiraTela';
+import MainTabs from './routes';
+import Login from './src/PreLoad/login/login';
+import Cadastro from './src/PreLoad/Cadastro/cadastro';
+import {StatusBar} from 'react-native';
 
-import {
-  SafeAreaView,
-  View,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  ScrollView,
-} from 'react-native';
+const Stack = createStackNavigator();
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    // backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <>
       <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+        backgroundColor="transparent"
+        translucent
+        barStyle="dark-content"
       />
-      <View>
-        <Text>Oi</Text>
-      </View>
-    </SafeAreaView>
+
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="PrimeiraTela">
+          <Stack.Screen
+            name="PrimeiraTela"
+            component={PrimeiraTela}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Cadastro"
+            component={Cadastro}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Main"
+            component={MainTabs}
+            options={{headerShown: false}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
